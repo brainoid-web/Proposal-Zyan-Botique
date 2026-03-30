@@ -20,8 +20,6 @@
     --purple: #8B5CF6;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  
-  /* FIXED: Allow scrolling on mobile if content is long */
   html, body { width:100%; height:100%; overflow:hidden; background:#000; }
   body { font-family:'DM Sans', sans-serif; color:var(--cream); }
 
@@ -31,23 +29,20 @@
     position:absolute; inset:0; display:flex; flex-direction:column;
     opacity:0; pointer-events:none; transition:opacity .6s ease, transform .6s ease;
     transform:translateY(30px);
-    overflow-y: auto; /* Allow vertical scrolling within a slide */
-    -webkit-overflow-scrolling: touch;
   }
   .slide.active { opacity:1; pointer-events:all; transform:translateY(0); }
 
-  /* NAV - Made smaller for mobile */
+  /* NAV */
   .nav {
-    position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
-    display:flex; align-items:center; gap:12px; z-index:100;
-    background:rgba(0,0,0,.6); backdrop-filter:blur(12px);
+    position:fixed; bottom:32px; left:50%; transform:translateX(-50%);
+    display:flex; align-items:center; gap:20px; z-index:100;
+    background:rgba(255,255,255,.06); backdrop-filter:blur(12px);
     border:0.5px solid rgba(255,255,255,.12); border-radius:50px;
-    padding:8px 16px;
-    width: max-content;
+    padding:10px 24px;
   }
   .nav-btn {
     background:none; border:none; color:var(--cream2); cursor:pointer;
-    font-size:16px; padding:4px 8px; transition:color .2s;
+    font-size:18px; padding:4px 8px; transition:color .2s;
   }
   .nav-btn:hover { color:var(--gold); }
   .nav-dots { display:flex; gap:6px; }
@@ -56,27 +51,22 @@
     cursor:pointer; transition:all .3s;
   }
   .dot.active { background:var(--gold); width:18px; border-radius:3px; }
-  .slide-count { font-size:11px; color:var(--cream2); letter-spacing:.05em; }
+  .slide-count { font-size:12px; color:var(--cream2); letter-spacing:.05em; }
 
   /* COMMON LAYOUT */
   .slide-inner {
     flex:1; display:flex; flex-direction:column;
-    padding:40px 30px 100px; /* Reduced padding for mobile */
-    position:relative; width: 100%; max-width: 1200px; margin: 0 auto;
+    padding:48px 60px 100px;
+    position:relative; overflow:hidden;
   }
-  
-  @media (min-width: 769px) {
-    .slide-inner { padding: 48px 60px 100px; }
-  }
-
   .tag {
-    display:inline-block; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    display:inline-block; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
     color:var(--gold); border:0.5px solid rgba(201,168,76,.4); border-radius:20px;
-    padding:4px 12px; margin-bottom:16px; width: fit-content;
+    padding:5px 14px; margin-bottom:20px;
   }
-  h1 { font-family:'Playfair Display', serif; font-size:clamp(32px,8vw,64px); line-height:1.1; color:var(--cream); }
-  h2 { font-family:'Playfair Display', serif; font-size:clamp(24px,6vw,44px); line-height:1.15; color:var(--cream); }
-  .sub { font-size:15px; color:var(--cream2); line-height:1.6; max-width:600px; margin-top:12px; }
+  h1 { font-family:'Playfair Display', serif; font-size:clamp(36px,5vw,64px); line-height:1.1; color:var(--cream); }
+  h2 { font-family:'Playfair Display', serif; font-size:clamp(26px,3.5vw,44px); line-height:1.15; color:var(--cream); }
+  .sub { font-size:16px; color:var(--cream2); line-height:1.65; max-width:600px; margin-top:16px; }
   .gold { color:var(--gold); }
   .italic { font-style:italic; }
 
@@ -85,80 +75,273 @@
     position:absolute; inset:0; pointer-events:none;
     background-image:linear-gradient(rgba(201,168,76,.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(201,168,76,.03) 1px, transparent 1px);
-    background-size:40px 40px;
+    background-size:60px 60px;
+  }
+  .bg-glow {
+    position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; opacity:.25;
   }
 
   /* ── SLIDE 1: COVER ── */
   #s1 { background:var(--dark); }
   #s1 .slide-inner { justify-content:center; align-items:flex-start; }
-  #s1 .hero { font-weight:700; }
-  #s1 .brand-badge { position:absolute; top:30px; left:30px; font-size:11px; color:var(--gold); }
-  #s1 .year { position:absolute; bottom:110px; right:30px; font-size:11px; opacity:0.3; }
-
-  /* ── RESPONSIVE GRID SYSTEM ── */
-  .split-container { display: flex; flex-direction: column; gap: 32px; }
-  @media (min-width: 992px) {
-    .split-container { flex-direction: row; align-items: center; }
-    .split-left, .split-right { flex: 1; }
+  #s1 .eyebrow { font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:32px; }
+  #s1 .hero { font-family:'Playfair Display', serif; font-size:clamp(52px,7vw,96px); font-weight:700; line-height:.95; }
+  #s1 .hero .line2 { color:var(--gold); font-style:italic; }
+  #s1 .divider { width:60px; height:1px; background:var(--gold); margin:32px 0; }
+  #s1 .caption { font-size:15px; color:var(--cream2); letter-spacing:.04em; }
+  #s1 .brand-badge {
+    position:absolute; top:48px; right:60px; font-size:13px; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--gold);
   }
+  #s1 .year { position:absolute; bottom:110px; right:60px; font-size:12px; color:rgba(255,255,255,.25); }
 
-  /* Stat Boxes Fix */
-  .stat-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 24px; width: 100%; }
-  @media (min-width: 480px) { .stat-row { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 992px) { .stat-row { grid-template-columns: repeat(3, 1fr); } }
-
+  /* ── SLIDE 2: THE PROBLEM ── */
+  #s2 { background:var(--dark2); }
+  #s2 .slide-inner { flex-direction:row; gap:48px; align-items:center; }
+  .split-left { flex:1; }
+  .split-right { flex:1.2; }
+  .stat-row { display:flex; gap:20px; margin-top:32px; flex-wrap:wrap; }
   .stat-box {
-    background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.1);
-    border-radius:12px; padding:16px; position:relative;
+    flex:1; min-width:140px; background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:12px; padding:20px; position:relative; overflow:hidden;
   }
-  .stat-num { font-family:'Playfair Display', serif; font-size:32px; font-weight:700; color:var(--gold); }
-  .stat-label { font-size:11px; color:var(--cream2); margin-top:4px; }
+  .stat-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); }
+  .stat-num { font-family:'Playfair Display', serif; font-size:42px; font-weight:700; color:var(--gold); }
+  .stat-label { font-size:12px; color:var(--cream2); margin-top:4px; line-height:1.4; }
 
-  /* PHONE MOCKUPS - Scale for mobile */
+  /* PHONE MOCKUP */
   .phone {
-    width:100%; max-width:240px; height:480px; background:#1C1C1E; border-radius:36px;
-    border:8px solid #2C2C2E; position:relative; overflow:hidden; margin: 20px auto;
+    width:220px; height:440px; background:#1C1C1E; border-radius:36px;
+    border:8px solid #2C2C2E; position:relative; overflow:hidden; margin:auto;
+    box-shadow:0 40px 80px rgba(0,0,0,.8);
   }
+  .phone-notch { width:80px; height:24px; background:#000; border-radius:0 0 16px 16px; margin:0 auto; position:relative; z-index:2; }
+  .phone-screen { padding:8px; }
+  .wa-header { background:#075E54; padding:10px 12px; display:flex; align-items:center; gap:8px; }
+  .wa-avatar { width:32px; height:32px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+  .wa-name { font-size:12px; font-weight:600; color:#fff; }
+  .wa-status { font-size:10px; color:#B2DFDB; }
+  .wa-msgs { padding:8px 10px; display:flex; flex-direction:column; gap:6px; background:#ECE5DD; flex:1; }
+  .wa-msg { font-size:10px; line-height:1.4; border-radius:8px; padding:6px 8px; max-width:80%; }
+  .wa-msg.in { background:#fff; color:#333; align-self:flex-start; border-radius:0 8px 8px 8px; }
+  .wa-msg.out { background:#DCF8C6; color:#333; align-self:flex-end; border-radius:8px 0 8px 8px; }
+  .wa-time { font-size:8px; color:#888; margin-top:2px; text-align:right; }
 
-  /* ── SLIDE 3: GMB ── */
+  /* ── SLIDE 3: GOOGLE LISTING ── */
+  #s3 { background:var(--dark); }
+  #s3 .slide-inner { flex-direction:row; gap:48px; align-items:center; }
   .gmb-card {
-    background:#fff; border-radius:12px; overflow:hidden; width:100%; max-width:320px;
-    box-shadow:0 20px 60px rgba(0,0,0,.6); margin: 0 auto;
+    background:#fff; border-radius:12px; overflow:hidden; width:300px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6); flex-shrink:0;
   }
+  .gmb-img { width:100%; height:140px; background:linear-gradient(135deg,#2D1B69,#6B21A8); display:flex; align-items:center; justify-content:center; position:relative; }
+  .gmb-img-text { color:#fff; font-family:'Playfair Display',serif; font-size:18px; }
+  .gmb-body { padding:14px; }
+  .gmb-name { font-size:16px; font-weight:700; color:#1A1A1A; margin-bottom:2px; }
+  .gmb-cat { font-size:12px; color:#666; margin-bottom:6px; }
+  .gmb-stars { display:flex; align-items:center; gap:4px; margin-bottom:8px; }
+  .stars { color:#F9A825; font-size:13px; }
+  .gmb-rating { font-size:12px; color:#444; }
+  .gmb-info { display:flex; flex-direction:column; gap:5px; }
+  .gmb-row { display:flex; align-items:center; gap:8px; font-size:11px; color:#555; }
+  .gmb-icon { color:#1A73E8; font-size:12px; }
+  .gmb-actions { display:flex; gap:8px; margin-top:10px; }
+  .gmb-btn { flex:1; padding:7px; border-radius:6px; border:1px solid #DADCE0; font-size:11px; color:#1A73E8; text-align:center; cursor:pointer; }
+  .before-after { display:flex; flex-direction:column; gap:12px; }
+  .ba-label { font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+  .before-box { background:rgba(232,76,61,.08); border:0.5px solid rgba(232,76,61,.3); border-radius:8px; padding:12px; }
+  .after-box { background:rgba(45,212,191,.08); border:0.5px solid rgba(45,212,191,.3); border-radius:8px; padding:12px; }
+  .ba-text { font-size:13px; color:var(--cream2); line-height:1.5; }
 
-  /* ── SLIDE 4: INSTAGRAM & CALENDAR ── */
-  .ig-layout { display: flex; flex-direction: column; gap: 24px; }
-  @media (min-width: 992px) { .ig-layout { flex-direction: row; } }
+  /* ── SLIDE 4: INSTAGRAM ── */
+  #s4 { background:var(--dark2); }
+  #s4 .slide-inner { flex-direction:row; gap:40px; align-items:flex-start; }
+  .ig-phone {
+    width:200px; flex-shrink:0; background:#000; border-radius:32px;
+    border:6px solid #2C2C2E; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,.7);
+  }
+  .ig-header { padding:10px 12px; display:flex; align-items:center; justify-content:space-between; border-bottom:0.5px solid #333; }
+  .ig-handle { font-size:12px; font-weight:700; color:#fff; }
+  .ig-follow { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; font-size:10px; padding:4px 10px; border-radius:4px; }
+  .ig-stats { display:flex; justify-content:space-around; padding:10px; border-bottom:0.5px solid #222; }
+  .ig-stat { text-align:center; }
+  .ig-stat-num { font-size:13px; font-weight:700; color:#fff; }
+  .ig-stat-label { font-size:9px; color:#888; }
+  .ig-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; }
+  .ig-cell { aspect-ratio:1; overflow:hidden; }
+  .ig-cell img { width:100%; height:100%; object-fit:cover; }
+  .ig-post-bg { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:20px; }
 
-  .week-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 16px; }
-  @media (min-width: 600px) { .week-row { grid-template-columns: repeat(5, 1fr); } }
-
+  .content-plan { flex:1; }
+  .week-row { display:flex; gap:8px; margin-bottom:8px; }
   .day-cell {
-    background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.1);
-    border-radius:8px; padding:10px; text-align:center;
+    flex:1; background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:8px; padding:8px; text-align:center;
   }
+  .day-name { font-size:10px; color:var(--gold); font-weight:500; margin-bottom:4px; text-transform:uppercase; letter-spacing:.08em; }
+  .day-type { font-size:10px; color:var(--cream2); line-height:1.3; }
+  .day-cell.highlight { background:rgba(201,168,76,.1); border-color:rgba(201,168,76,.3); }
+  .reel-badge { display:inline-block; background:#E1306C; color:#fff; font-size:9px; padding:2px 6px; border-radius:4px; margin-top:4px; }
 
-  /* ── SLIDE 7: PROOF GRID ── */
-  .proof-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-  @media (min-width: 992px) { .proof-grid { grid-template-columns: repeat(3, 1fr); } }
+  /* ── SLIDE 5: WHATSAPP BOT ── */
+  #s5 { background:var(--dark); }
+  #s5 .slide-inner { flex-direction:row; gap:48px; align-items:center; }
+  .wa-full {
+    width:260px; flex-shrink:0; background:#111B21; border-radius:20px;
+    overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,.8);
+  }
+  .wa-full-header { background:#1F2C34; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .wa-full-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#667eea,#764ba2); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#fff; }
+  .wa-full-info .wa-full-name { font-size:13px; font-weight:600; color:#E9EDF0; }
+  .wa-full-info .wa-full-sub { font-size:11px; color:#8696A0; margin-top:1px; }
+  .wa-full-msgs { padding:10px 12px; display:flex; flex-direction:column; gap:8px; min-height:320px; background:#0B141A; }
+  .wa-full-msg { border-radius:10px; padding:8px 10px; max-width:85%; }
+  .wa-full-msg.in { background:#1F2C34; color:#E9EDF0; font-size:11px; align-self:flex-start; border-radius:0 10px 10px 10px; }
+  .wa-full-msg.out { background:#005C4B; color:#E9EDF0; font-size:11px; align-self:flex-end; border-radius:10px 0 10px 10px; }
+  .wa-full-msg .msg-time { font-size:9px; color:#8696A0; margin-top:4px; text-align:right; }
+  .wa-full-msg .bot-tag { font-size:9px; color:#25D366; margin-bottom:3px; font-weight:500; }
+  .quick-replies { display:flex; flex-wrap:wrap; gap:5px; padding:8px 12px; background:#0B141A; border-top:0.5px solid #1F2C34; }
+  .qr-btn { font-size:10px; color:#00A884; border:1px solid #2D3E47; border-radius:16px; padding:4px 10px; }
+  .bot-features { flex:1; }
+  .feat-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:0.5px solid rgba(255,255,255,.07); }
+  .feat-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .feat-title { font-size:14px; font-weight:500; color:var(--cream); margin-bottom:3px; }
+  .feat-desc { font-size:12px; color:var(--cream2); line-height:1.5; }
+
+  /* ── SLIDE 6: AI PERSONALIZATION ── */
+  #s6 { background:var(--dark2); }
+  #s6 .slide-inner { flex-direction:column; }
+  #s6 h2 { margin-bottom:8px; }
+  #s6 .sub { margin-bottom:28px; }
+  .ai-demo { display:flex; gap:20px; flex:1; }
+  .ai-sidebar {
+    width:200px; background:rgba(255,255,255,.03); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:12px; padding:16px; flex-shrink:0;
+  }
+  .ai-sidebar-title { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); margin-bottom:14px; }
+  .pref-item { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .pref-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .pref-label { font-size:11px; color:var(--cream2); }
+  .pref-bar { flex:1; height:3px; background:rgba(255,255,255,.1); border-radius:2px; }
+  .pref-fill { height:100%; border-radius:2px; background:var(--gold); }
+  .ai-products { flex:1; }
+  .prod-row { display:flex; gap:12px; margin-bottom:12px; }
+  .prod-card {
+    flex:1; background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:10px; overflow:hidden; position:relative;
+  }
+  .prod-card.match { border-color:rgba(201,168,76,.5); }
+  .match-badge {
+    position:absolute; top:8px; left:8px; background:var(--gold); color:#000;
+    font-size:9px; font-weight:600; padding:3px 7px; border-radius:10px;
+    letter-spacing:.05em;
+  }
+  .prod-img { height:100px; display:flex; align-items:center; justify-content:center; font-size:32px; }
+  .prod-info { padding:10px; }
+  .prod-name { font-size:11px; font-weight:500; color:var(--cream); margin-bottom:3px; }
+  .prod-price { font-size:12px; color:var(--gold); font-weight:600; }
+  .prod-tags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
+  .prod-tag { font-size:9px; color:var(--cream2); background:rgba(255,255,255,.07); padding:2px 6px; border-radius:4px; }
+  .ai-score { font-size:10px; color:var(--teal); margin-top:4px; }
+  .ai-engine { background:rgba(45,212,191,.06); border:0.5px solid rgba(45,212,191,.2); border-radius:10px; padding:12px 16px; margin-top:12px; display:flex; align-items:center; gap:16px; }
+  .ai-engine-icon { font-size:24px; }
+  .ai-engine-text { font-size:12px; color:var(--cream2); line-height:1.5; }
+  .ai-engine-label { font-size:11px; color:var(--teal); font-weight:500; margin-bottom:3px; }
+
+  /* ── SLIDE 7: ZALANDO PROOF ── */
+  #s7 { background:var(--dark); }
+  #s7 .slide-inner { flex-direction:column; }
+  .proof-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; flex:1; }
+  .proof-card {
+    background:rgba(255,255,255,.03); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:14px; padding:20px; display:flex; flex-direction:column; position:relative; overflow:hidden;
+  }
+  .proof-card::after { content:''; position:absolute; inset:0; opacity:.04; }
+  .proof-brand { font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+  .proof-num { font-family:'Playfair Display',serif; font-size:52px; font-weight:700; line-height:1; margin-bottom:8px; }
+  .proof-what { font-size:13px; color:var(--cream2); line-height:1.5; flex:1; }
+  .proof-tech { margin-top:14px; }
+  .tech-tag { display:inline-block; font-size:10px; background:rgba(139,92,246,.15); color:var(--purple); border:0.5px solid rgba(139,92,246,.3); border-radius:4px; padding:3px 8px; margin-right:4px; margin-bottom:4px; }
+  .proof-mockup { margin-top:14px; border-radius:8px; overflow:hidden; }
+  .zal-ui { background:#1A1A1A; border-radius:8px; padding:10px; }
+  .zal-row { display:flex; gap:6px; }
+  .zal-item { flex:1; background:#222; border-radius:6px; overflow:hidden; }
+  .zal-img-placeholder { height:60px; display:flex; align-items:center; justify-content:center; font-size:22px; }
+  .zal-tag-row { display:flex; gap:4px; padding:5px; flex-wrap:wrap; }
+  .zal-label { font-size:8px; background:#333; color:#ccc; padding:2px 5px; border-radius:3px; }
+  .zal-label.ai { background:rgba(139,92,246,.3); color:var(--purple); }
+
+  /* ── SLIDE 8: ECOMMERCE ── */
+  #s8 { background:var(--dark2); }
+  #s8 .slide-inner { flex-direction:row; gap:40px; align-items:center; }
+  .store-mockup {
+    width:300px; flex-shrink:0; background:#fff; border-radius:12px;
+    overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,.7);
+  }
+  .store-header { background:#7C3AED; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; }
+  .store-logo { color:#fff; font-size:13px; font-weight:700; letter-spacing:.08em; }
+  .store-cart { background:rgba(255,255,255,.2); color:#fff; font-size:10px; padding:4px 10px; border-radius:20px; }
+  .store-hero { background:linear-gradient(160deg,#F3E8FF,#DDD6FE); height:80px; display:flex; align-items:center; justify-content:center; }
+  .store-hero-text { font-size:13px; font-weight:700; color:#5B21B6; }
+  .store-products { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:10px; }
+  .store-item { background:#FAFAFA; border-radius:8px; overflow:hidden; border:0.5px solid #E5E7EB; }
+  .store-item-img { height:70px; display:flex; align-items:center; justify-content:center; font-size:26px; }
+  .store-item-info { padding:6px 8px; }
+  .store-item-name { font-size:10px; color:#1F2937; font-weight:500; margin-bottom:2px; }
+  .store-item-price { font-size:11px; color:#7C3AED; font-weight:600; }
+  .store-item-btn { width:100%; background:#7C3AED; color:#fff; font-size:9px; padding:5px; text-align:center; cursor:pointer; }
+  .payment-row { display:flex; gap:6px; padding:8px 10px; background:#F9FAFB; border-top:0.5px solid #E5E7EB; }
+  .pay-badge { flex:1; text-align:center; font-size:9px; color:#059669; font-weight:600; background:#ECFDF5; border-radius:4px; padding:4px; }
+  .ecom-benefits { flex:1; }
+  .ben-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:0.5px solid rgba(255,255,255,.07); }
+  .ben-icon { font-size:22px; flex-shrink:0; margin-top:2px; }
+  .ben-title { font-size:14px; font-weight:500; color:var(--cream); margin-bottom:3px; }
+  .ben-desc { font-size:12px; color:var(--cream2); line-height:1.5; }
+  .ben-stat { font-size:11px; color:var(--teal); margin-top:4px; font-weight:500; }
 
   /* ── SLIDE 9: SERVICES ── */
-  .services-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
-  @media (min-width: 600px) { .services-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1100px) { .services-grid { grid-template-columns: repeat(4, 1fr); } }
+  #s9 { background:var(--dark); }
+  #s9 .slide-inner { flex-direction:column; }
+  .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; flex:1; align-content:start; margin-top:28px; }
+  .srv-card {
+    background:rgba(255,255,255,.03); border:0.5px solid rgba(255,255,255,.1);
+    border-radius:12px; padding:18px; transition:all .3s;
+  }
+  .srv-card:hover { background:rgba(201,168,76,.06); border-color:rgba(201,168,76,.3); transform:translateY(-2px); }
+  .srv-stage { font-size:10px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; font-weight:500; }
+  .srv-icon { font-size:24px; margin-bottom:10px; }
+  .srv-title { font-size:14px; font-weight:500; color:var(--cream); margin-bottom:6px; }
+  .srv-list { list-style:none; }
+  .srv-list li { font-size:11px; color:var(--cream2); padding:3px 0; display:flex; align-items:center; gap:6px; }
+  .srv-list li::before { content:'→'; color:var(--gold); font-size:10px; }
+  .pricing-note { margin-top:16px; padding:14px 20px; background:rgba(201,168,76,.07); border:0.5px solid rgba(201,168,76,.25); border-radius:10px; display:flex; align-items:center; justify-content:space-between; }
+  .pricing-text { font-size:13px; color:var(--cream2); }
+  .pricing-highlight { font-size:14px; color:var(--gold); font-weight:500; }
 
   /* ── SLIDE 10: CTA ── */
-  .next-steps { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-  @media (min-width: 768px) { .next-steps { flex-direction: row; justify-content: center; flex-wrap: wrap; } }
-  .step-pill { background:rgba(255,255,255,.05); padding:8px 16px; border-radius:30px; font-size:12px; display: flex; align-items: center; gap: 10px; }
-
-  /* UTILS */
-  .anim { opacity: 0; }
-  .slide.active .anim { animation: fadeUp .6s ease forwards; }
-  @keyframes fadeUp { 
-    from { opacity:0; transform:translateY(20px); } 
-    to { opacity:1; transform:translateY(0); } 
+  #s10 { background:var(--dark); }
+  #s10 .slide-inner { justify-content:center; align-items:center; text-align:center; }
+  #s10 h1 { font-size:clamp(40px,5.5vw,76px); }
+  #s10 .divider { width:60px; height:1px; background:var(--gold); margin:28px auto; }
+  .contact-row { display:flex; gap:20px; justify-content:center; margin-top:32px; flex-wrap:wrap; }
+  .contact-item { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .contact-label { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--gold); }
+  .contact-val { font-size:14px; color:var(--cream); }
+  .next-steps { display:flex; gap:12px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
+  .step-pill {
+    background:rgba(255,255,255,.04); border:0.5px solid rgba(255,255,255,.15);
+    border-radius:30px; padding:10px 22px; font-size:13px; color:var(--cream2);
+    display:flex; align-items:center; gap:8px;
   }
+  .step-num { width:22px; height:22px; border-radius:50%; background:var(--gold); color:#000; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .slide.active .anim { animation:fadeUp .5s ease forwards; }
+  .slide.active .anim:nth-child(2) { animation-delay:.1s; opacity:0; }
+  .slide.active .anim:nth-child(3) { animation-delay:.2s; opacity:0; }
+  .slide.active .anim:nth-child(4) { animation-delay:.3s; opacity:0; }
+  .slide.active .anim:nth-child(5) { animation-delay:.4s; opacity:0; }
 </style>
 </head>
 <body>
@@ -168,14 +351,16 @@
   <!-- SLIDE 1: COVER -->
   <div class="slide active" id="s1">
     <div class="bg-grid"></div>
+    <div class="bg-glow" style="width:500px;height:500px;background:var(--gold);top:-200px;right:-100px;"></div>
     <div class="slide-inner">
-      <div class="brand-badge anim">MAVEXA AGENCY</div>
-      <div class="tag anim">Proposal 2025</div>
-      <h1 class="hero anim">
-        <span>Zyan</span><br>
-        <span class="gold italic">Boutique</span>
+      <div class="brand-badge">MAVEXA AGENCY</div>
+      <div class="eyebrow">A growth proposal for</div>
+      <h1 class="hero">
+        <span style="display:block">Zyan</span>
+        <span class="line2" style="display:block">Boutique</span>
       </h1>
-      <p class="sub anim">From walk-in store to AI-powered fashion brand. A 4-stage digital transformation roadmap.</p>
+      <div class="divider"></div>
+      <div class="caption">From walk-in store to AI-powered fashion brand<br>A 4-stage digital transformation roadmap</div>
       <div class="year">2025</div>
     </div>
   </div>
@@ -184,27 +369,51 @@
   <div class="slide" id="s2">
     <div class="bg-grid"></div>
     <div class="slide-inner">
-      <div class="split-container">
-        <div class="split-left">
-          <div class="tag anim">The Problem</div>
-          <h2 class="anim">Most boutiques are <br><span class="gold italic">invisible</span> online</h2>
-          <p class="sub anim">Customers in Rabwah want to shop, but they can't find you. Your competitor doesn't have better clothes — they just have a better digital presence.</p>
-          <div class="stat-row anim">
-            <div class="stat-box"><div class="stat-num">95%</div><div class="stat-label">Have no Google presence</div></div>
-            <div class="stat-box"><div class="stat-num">3x</div><div class="stat-label">More walk-ins with GMB</div></div>
-            <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Customer follow-up systems</div></div>
+      <div class="split-left">
+        <div class="tag anim">The Problem</div>
+        <h2 class="anim">Most boutiques are <br><span class="gold italic">invisible</span> online</h2>
+        <p class="sub anim">Customers want to shop, but they can't find you. Your competitor doesn't have better clothes — they just have a better digital presence.</p>
+        <div class="stat-row anim">
+          <div class="stat-box">
+            <div class="stat-num">95%</div>
+            <div class="stat-label">of local boutiques have no Google presence</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">3x</div>
+            <div class="stat-label">more walk-ins after Google My Business setup</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">0</div>
+            <div class="stat-label">repeat customer follow-up without a digital system</div>
           </div>
         </div>
-        <div class="split-right anim">
+      </div>
+      <div class="split-right anim">
+        <!-- PHONE MOCKUP: WhatsApp flooding -->
+        <div style="position:relative;">
           <div class="phone">
-            <div class="wa-header" style="background:#075E54; color:#fff; padding:10px; font-size:12px;">Zyan Boutique (No Auto-Reply)</div>
-            <div style="background:#ECE5DD; height:100%; padding:10px; font-size:10px; display:flex; flex-direction:column; gap:8px;">
-              <div style="background:#fff; padding:8px; border-radius:8px; align-self:flex-start; max-width:80%;">Price kya hai?</div>
-              <div style="background:#fff; padding:8px; border-radius:8px; align-self:flex-start; max-width:80%;">Available in Red?</div>
-              <div style="background:#fff; padding:8px; border-radius:8px; align-self:flex-start; max-width:80%;">Delivery to Rabwah?</div>
-              <div style="text-align:center; color:#888; font-size:9px; margin-top:10px;">47 unanswered messages...</div>
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="wa-header">
+                <div class="wa-avatar">ZB</div>
+                <div>
+                  <div class="wa-name">Zyan Boutique</div>
+                  <div class="wa-status">No auto-reply setup</div>
+                </div>
+              </div>
+              <div class="wa-msgs" style="background:#ECE5DD;padding:8px;display:flex;flex-direction:column;gap:5px;height:320px;overflow:hidden;">
+                <div class="wa-msg in">Assalam o alaikum, what's the price of red bridal suit? 🌹</div>
+                <div class="wa-msg in">Kya grey color bhi available hai?</div>
+                <div class="wa-msg in">Size chart share kr sakti hain?</div>
+                <div class="wa-msg in">Rabwah mein delivery hogi?</div>
+                <div class="wa-msg in">Bhai price btao please 🙏</div>
+                <div class="wa-msg in">Aap ka shop band hai kya?</div>
+                <div style="text-align:center;font-size:9px;color:#888;padding:4px;">47 unanswered messages...</div>
+                <div class="wa-msg out" style="opacity:.4;">Sorry for the delay...</div>
+              </div>
             </div>
           </div>
+          <div style="position:absolute;top:-10px;right:-10px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">47 unread</div>
         </div>
       </div>
     </div>
@@ -214,34 +423,50 @@
   <div class="slide" id="s3">
     <div class="bg-grid"></div>
     <div class="slide-inner">
-      <div class="split-container">
-        <div class="split-left">
-          <div class="tag anim">Stage 1</div>
-          <h2 class="anim">Put Zyan on the <span class="gold italic">map</span></h2>
-          <p class="sub anim">When someone searches "ladies boutique near me" — Zyan should be #1.</p>
-          <div style="margin-top:20px;" class="anim">
-            <div style="background:rgba(232,76,61,.1); padding:12px; border-radius:8px; margin-bottom:10px; border-left:4px solid var(--red);">
-              <div style="font-size:11px; font-weight:700;">BEFORE</div>
-              <div style="font-size:13px;">Zyan doesn't appear. Customers go elsewhere.</div>
-            </div>
-            <div style="background:rgba(45,212,191,.1); padding:12px; border-radius:8px; border-left:4px solid var(--teal);">
-              <div style="font-size:11px; font-weight:700;">AFTER MAVEXA</div>
-              <div style="font-size:13px;">Top result, photos, reviews, & WhatsApp button.</div>
-            </div>
+      <div class="split-left" style="flex:1.2">
+        <div class="tag anim">Stage 1 · Service 1</div>
+        <h2 class="anim">Put Zyan on the map — <span class="gold italic">literally</span></h2>
+        <p class="sub anim">When someone in Rabwah searches "ladies boutique near me" — Zyan should be the first result they see. Right now, they find nothing.</p>
+        <div class="before-after anim" style="margin-top:24px;">
+          <div class="before-box">
+            <div class="ba-label" style="color:var(--red)">❌ Before Mavexa</div>
+            <div class="ba-text">Search "boutique Rabwah" → Zyan doesn't appear. Customers give up. Walk to a competitor.</div>
+          </div>
+          <div style="height:8px;"></div>
+          <div class="after-box">
+            <div class="ba-label" style="color:var(--teal)">✓ After Mavexa</div>
+            <div class="ba-text">Zyan appears at the top with photos, reviews, WhatsApp button, directions & hours. 3x more walk-in inquiries within 60 days.</div>
           </div>
         </div>
-        <div class="split-right anim">
-          <div class="gmb-card">
-            <div style="height:120px; background:#1a1a2e; display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:serif; font-size:24px;">Zyan</div>
-            <div style="padding:16px; color:#333;">
-              <div style="font-weight:700; font-size:18px;">Zyan Boutique</div>
-              <div style="font-size:12px; color:#666;">Women's Clothing Store</div>
-              <div style="color:#F9A825; margin:5px 0;">★★★★★ <span style="color:#666; font-size:11px;">(127 reviews)</span></div>
-              <div style="font-size:11px; line-height:1.8;">📍 Main Bazar, Chenab Nagar<br>📞 +92 300 XXXXXXX</div>
-              <div style="display:flex; gap:8px; margin-top:10px;">
-                <div style="flex:1; border:1px solid #ddd; padding:6px; text-align:center; border-radius:4px; font-size:11px;">Call</div>
-                <div style="flex:1; background:#25D366; color:#fff; padding:6px; text-align:center; border-radius:4px; font-size:11px;">WhatsApp</div>
-              </div>
+      </div>
+      <div class="split-right anim" style="display:flex;justify-content:center;align-items:center;">
+        <!-- REAL GMB MOCKUP -->
+        <div class="gmb-card">
+          <div class="gmb-img">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);"></div>
+            <div style="position:relative;text-align:center;padding:16px;">
+              <div style="font-family:'Playfair Display',serif;font-size:22px;color:#C9A84C;font-weight:700;">Zyan</div>
+              <div style="font-size:11px;color:#ddd;letter-spacing:.15em;text-transform:uppercase;">BOUTIQUE</div>
+              <div style="font-size:10px;color:#888;margin-top:4px;">Rabwah · Chenab Nagar</div>
+            </div>
+          </div>
+          <div class="gmb-body">
+            <div class="gmb-name">Zyan Boutique</div>
+            <div class="gmb-cat">Women's clothing store · Boutique</div>
+            <div class="gmb-stars">
+              <div class="stars">★★★★★</div>
+              <div class="gmb-rating">4.8 (127 reviews)</div>
+            </div>
+            <div class="gmb-info">
+              <div class="gmb-row"><span class="gmb-icon">📍</span> Main Bazar, Chenab Nagar, Punjab</div>
+              <div class="gmb-row"><span class="gmb-icon">🕐</span> <span style="color:#34A853;font-size:11px;font-weight:500;">Open</span> · Closes 9 PM</div>
+              <div class="gmb-row"><span class="gmb-icon">📞</span> +92 300 XXXXXXX</div>
+              <div class="gmb-row"><span class="gmb-icon">🌐</span> zyan-boutique.pk</div>
+            </div>
+            <div class="gmb-actions">
+              <div class="gmb-btn">📞 Call</div>
+              <div class="gmb-btn">🗺️ Directions</div>
+              <div class="gmb-btn" style="background:#25D366;color:#fff;border-color:#25D366;">💬 WhatsApp</div>
             </div>
           </div>
         </div>
@@ -249,83 +474,495 @@
     </div>
   </div>
 
-  <!-- SLIDE 4: INSTAGRAM -->
+  <!-- SLIDE 4: INSTAGRAM STRATEGY -->
   <div class="slide" id="s4">
     <div class="bg-grid"></div>
     <div class="slide-inner">
       <div class="tag anim">Stage 1 · Service 2</div>
-      <h2 class="anim">Instagram Strategy</h2>
-      <div class="ig-layout anim" style="margin-top:20px;">
-        <div class="phone" style="height:400px; margin:0 auto;">
-            <div style="padding:10px; color:#fff; font-size:12px; font-weight:700; border-bottom:1px solid #333;">zyan.boutique</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; padding:2px;">
-                <div style="aspect-ratio:1; background:#333;"></div><div style="aspect-ratio:1; background:#444;"></div><div style="aspect-ratio:1; background:#333;"></div>
-                <div style="aspect-ratio:1; background:#444;"></div><div style="aspect-ratio:1; background:#333;"></div><div style="aspect-ratio:1; background:#444;"></div>
+      <h2 class="anim">Instagram that <span class="gold italic">actually converts</span></h2>
+      <div style="display:flex;gap:36px;flex:1;align-items:flex-start;margin-top:20px;">
+        <!-- IG PHONE -->
+        <div class="ig-phone anim" style="width:180px;flex-shrink:0;">
+          <div style="background:#000;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:13px;font-weight:700;color:#fff;font-family:'Playfair Display',serif;">zyan.boutique</div>
+            <div style="display:flex;gap:10px;">
+              <span style="color:#fff;font-size:14px;">+</span>
+              <span style="color:#fff;font-size:14px;">☰</span>
             </div>
+          </div>
+          <div style="display:flex;justify-content:space-around;padding:10px 8px;border-bottom:0.5px solid #333;">
+            <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:#fff;">2.4K</div><div style="font-size:9px;color:#888;">Posts</div></div>
+            <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:#fff;">18.2K</div><div style="font-size:9px;color:#888;">Followers</div></div>
+            <div style="text-align:center;"><div style="font-size:13px;font-weight:700;color:#fff;">892</div><div style="font-size:9px;color:#888;">Following</div></div>
+          </div>
+          <div style="padding:8px;border-bottom:0.5px solid #222;">
+            <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:2px;">Zyan Boutique ✨</div>
+            <div style="font-size:10px;color:#aaa;line-height:1.4;">Premium ladies fashion<br>📍 Rabwah | 🚚 Pakistan-wide<br>💬 Order on WhatsApp</div>
+            <div style="background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);color:#fff;font-size:10px;text-align:center;padding:4px;border-radius:4px;margin-top:6px;">Shop Now →</div>
+          </div>
+          <!-- IG Grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#000;">
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:20px;">👗</div>
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#f6d365,#fda085);display:flex;align-items:center;justify-content:center;font-size:20px;">🎀</div>
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#89f7fe,#66a6ff);display:flex;align-items:center;justify-content:center;font-size:20px;">👘</div>
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#fddb92,#d1fdff);display:flex;align-items:center;justify-content:center;font-size:20px;">💍</div>
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#a18cd1,#fbc2eb);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;">
+              <span>🎬</span>
+              <div style="position:absolute;top:4px;right:4px;background:#E1306C;color:#fff;font-size:7px;padding:1px 4px;border-radius:3px;">REEL</div>
+            </div>
+            <div style="aspect-ratio:1;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;font-size:20px;">👒</div>
+          </div>
         </div>
-        <div style="flex:1;">
-          <p class="sub">Weekly content calendar to keep your audience engaged.</p>
+
+        <!-- CONTENT CALENDAR -->
+        <div class="content-plan anim" style="flex:1;">
+          <div style="font-size:12px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;">Weekly Content Calendar — Built by Mavexa</div>
           <div class="week-row">
-            <div class="day-cell"><strong>Mon</strong><br>New Arrivals</div>
-            <div class="day-cell" style="background:rgba(201,168,76,.1)"><strong>Wed</strong><br>BTS Reel</div>
-            <div class="day-cell"><strong>Fri</strong><br>Sale Drop</div>
-            <div class="day-cell"><strong>Sat</strong><br>Review</div>
-            <div class="day-cell"><strong>Sun</strong><br>Style Tips</div>
+            <div class="day-cell highlight">
+              <div class="day-name">Mon</div>
+              <div class="day-type">New arrival reveal</div>
+              <div class="reel-badge">REEL</div>
+            </div>
+            <div class="day-cell">
+              <div class="day-name">Tue</div>
+              <div class="day-type">Styling tips for eid</div>
+            </div>
+            <div class="day-cell highlight">
+              <div class="day-name">Wed</div>
+              <div class="day-type">Behind the scenes</div>
+              <div class="reel-badge">REEL</div>
+            </div>
+            <div class="day-cell">
+              <div class="day-name">Thu</div>
+              <div class="day-type">Customer look of week</div>
+            </div>
+            <div class="day-cell highlight">
+              <div class="day-name">Fri</div>
+              <div class="day-type">Weekend sale drop</div>
+              <div class="reel-badge">REEL</div>
+            </div>
+          </div>
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:180px;background:rgba(225,48,108,.08);border:0.5px solid rgba(225,48,108,.25);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#E1306C;font-weight:600;margin-bottom:6px;">REELS STRATEGY</div>
+              <div style="font-size:11px;color:var(--cream2);line-height:1.5;">3 reels/week — unboxing, stitch reveal, styling tutorials. Reels get 5x more reach than static posts on Pakistan Instagram.</div>
+            </div>
+            <div style="flex:1;min-width:180px;background:rgba(45,212,191,.08);border:0.5px solid rgba(45,212,191,.25);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:var(--teal);font-weight:600;margin-bottom:6px;">HASHTAG TARGETING</div>
+              <div style="font-size:11px;color:var(--cream2);line-height:1.5;">#RabwahFashion #ChehabNagarStyle #LadiesSuitPakistan — local + national mix for maximum reach.</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;background:rgba(201,168,76,.06);border:0.5px solid rgba(201,168,76,.2);border-radius:8px;padding:12px;">
+            <div style="font-size:12px;color:var(--gold);font-weight:500;margin-bottom:4px;">Real result: local fashion brand in Lahore</div>
+            <div style="font-size:11px;color:var(--cream2);">Went from 1,200 to 22,000 followers in 6 months using this exact content structure. 340% increase in WhatsApp inquiries.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SLIDE 5: WHATSAPP BOT -->
+  <!-- SLIDE 5: WHATSAPP AUTOMATION -->
   <div class="slide" id="s5">
     <div class="bg-grid"></div>
     <div class="slide-inner">
-        <div class="split-container">
-            <div class="split-left">
-                <div class="tag anim">Stage 2</div>
-                <h2 class="anim">Your shop answers <br><span class="gold italic">at 3 AM</span></h2>
-                <p class="sub anim">An AI bot trained on your clothes. Responds instantly in Urdu or English with photos and prices.</p>
+      <div style="display:flex;gap:48px;align-items:center;flex:1;">
+        <!-- FULL WA MOCKUP -->
+        <div class="wa-full anim" style="flex-shrink:0;">
+          <div class="wa-full-header">
+            <div class="wa-full-avatar">ZB</div>
+            <div class="wa-full-info">
+              <div class="wa-full-name">Zyan Boutique 🤖</div>
+              <div class="wa-full-sub">AI-powered · Responds instantly 24/7</div>
             </div>
-            <div class="split-right anim">
-                <div class="phone" style="max-width:260px;">
-                    <div style="background:#1F2C34; padding:12px; color:#fff; font-size:12px;">Zyan AI Assistant</div>
-                    <div style="background:#0B141A; height:100%; padding:15px; font-size:11px; display:flex; flex-direction:column; gap:10px;">
-                        <div style="background:#1F2C34; color:#fff; padding:8px; border-radius:8px; align-self:flex-start;">Bridal suits dikhaein?</div>
-                        <div style="background:#005C4B; color:#fff; padding:8px; border-radius:8px; align-self:flex-end;">Ji zarur! Ye hamare top 3 designs hain... [Photos]</div>
-                    </div>
-                </div>
+          </div>
+          <div class="wa-full-msgs">
+            <div class="wa-full-msg in">
+              Assalam o alaikum! Bridal collection hai kya?
+              <div class="msg-time">9:24 AM</div>
             </div>
+            <div class="wa-full-msg out">
+              <div class="bot-tag">🤖 Zyan Bot · instant reply</div>
+              Walaikum assalam! Ji haan, hamare paas beautiful bridal collection available hai 💕<br><br>
+              👗 Bridal Suits: Rs 8,500 – 45,000<br>
+              🎀 Gharara Sets: Rs 12,000 – 28,000<br>
+              💍 Accessories: Rs 500 – 5,000<br><br>
+              Koi specific color ya style chahiye?
+              <div class="msg-time">9:24 AM ✓✓</div>
+            </div>
+            <div class="wa-full-msg in">
+              Red heavy bridal, size medium
+              <div class="msg-time">9:25 AM</div>
+            </div>
+            <div class="wa-full-msg out">
+              <div class="bot-tag">🤖 Zyan Bot · instant reply</div>
+              Yeh dekhiye hamari Red Bridal collection! 🌹<br><br>
+              ✨ 3 options available in Medium<br>
+              📸 Photos bhej rahi hoon...<br>
+              🚚 Rabwah delivery: same day<br><br>
+              Reserve karna chahein? Name aur address bhejein!
+              <div class="msg-time">9:25 AM ✓✓</div>
+            </div>
+          </div>
+          <div class="quick-replies">
+            <div class="qr-btn">📸 Show photos</div>
+            <div class="qr-btn">💰 Price list</div>
+            <div class="qr-btn">📏 Size guide</div>
+            <div class="qr-btn">🚚 Delivery info</div>
+          </div>
         </div>
+
+        <!-- FEATURES -->
+        <div class="bot-features anim" style="flex:1;">
+          <div class="tag">Stage 2 · WhatsApp Automation</div>
+          <h2 style="margin-bottom:8px;">Your boutique answers <span class="gold italic">at 3am</span></h2>
+          <p class="sub" style="margin-bottom:20px;">A WhatsApp bot trained on your catalog. Customers ask in Urdu or English — it responds instantly with prices, photos, sizes. You close deals while sleeping.</p>
+          <div class="feat-item">
+            <div class="feat-icon" style="background:rgba(37,211,102,.1);">🤖</div>
+            <div>
+              <div class="feat-title">Instant catalog replies</div>
+              <div class="feat-desc">Customer asks "red bridal medium" — bot sends exact matching products with photos and prices in seconds</div>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-icon" style="background:rgba(255,193,7,.1);">🛒</div>
+            <div>
+              <div class="feat-title">Cart abandonment recovery</div>
+              <div class="feat-desc">Someone asked about a dress but didn't order? Bot follows up after 2 hours: "Kya aap ne decide kiya?" — recovers 15-25% of lost sales</div>
+            </div>
+          </div>
+          <div class="feat-item">
+            <div class="feat-icon" style="background:rgba(59,130,246,.1);">📊</div>
+            <div>
+              <div class="feat-title">Order tracking automation</div>
+              <div class="feat-desc">Order placed → automatic WhatsApp: "Tayyar ho gaya!", "On the way!", "Delivered!" — zero manual work</div>
+            </div>
+          </div>
+          <div class="feat-item" style="border:none;">
+            <div class="feat-icon" style="background:rgba(201,168,76,.1);">📈</div>
+            <div>
+              <div class="feat-title">Real result</div>
+              <div class="feat-desc" style="color:var(--teal);">Pakistani fashion brands using WhatsApp bots report 3x more orders and 70% less time spent on manual replies</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- SLIDE 9: SERVICES -->
-  <div class="slide" id="s9">
+  <!-- SLIDE 6: AI PERSONALIZATION -->
+  <div class="slide" id="s6">
     <div class="bg-grid"></div>
-    <div class="slide-inner">
-      <div class="tag anim">Overview</div>
-      <h2 class="anim">The Roadmap</h2>
-      <div class="services-grid anim">
-        <div class="stat-box">
-            <div style="color:var(--gold); font-weight:700; margin-bottom:8px;">STAGE 1</div>
-            <div style="font-size:12px; line-height:1.4;">Google Listing, Instagram Setup, Bio Optimization.</div>
+    <div class="slide-inner" style="overflow:hidden;">
+      <div class="tag anim">Stage 4 · AI Service</div>
+      <h2 class="anim">AI that knows what your customer wants <span class="gold italic">before they do</span></h2>
+      <p class="sub anim" style="margin-bottom:20px;">Like how Netflix recommends shows — your website recommends outfits based on what each customer browsed, liked, and bought. Built exactly like ASOS and Stitch Fix do it.</p>
+
+      <div class="ai-demo anim">
+        <div class="ai-sidebar">
+          <div class="ai-sidebar-title">Customer profile — AI built</div>
+          <div style="font-size:10px;color:var(--cream);margin-bottom:10px;background:rgba(201,168,76,.1);padding:6px 8px;border-radius:6px;">Fatima A. · Rabwah</div>
+          <div class="pref-item">
+            <div class="pref-dot" style="background:#C9A84C;"></div>
+            <div class="pref-label" style="flex:1;">Embroidery</div>
+            <div class="pref-bar"><div class="pref-fill" style="width:90%;"></div></div>
+          </div>
+          <div class="pref-item">
+            <div class="pref-dot" style="background:#8B5CF6;"></div>
+            <div class="pref-label" style="flex:1;">Deep colors</div>
+            <div class="pref-bar"><div class="pref-fill" style="width:75%;background:#8B5CF6;"></div></div>
+          </div>
+          <div class="pref-item">
+            <div class="pref-dot" style="background:#2DD4BF;"></div>
+            <div class="pref-label" style="flex:1;">Formal wear</div>
+            <div class="pref-bar"><div class="pref-fill" style="width:80%;background:#2DD4BF;"></div></div>
+          </div>
+          <div class="pref-item">
+            <div class="pref-dot" style="background:#F87171;"></div>
+            <div class="pref-label" style="flex:1;">Budget: mid</div>
+            <div class="pref-bar"><div class="pref-fill" style="width:60%;background:#F87171;"></div></div>
+          </div>
+          <div style="margin-top:12px;padding:8px;background:rgba(45,212,191,.07);border:0.5px solid rgba(45,212,191,.2);border-radius:6px;">
+            <div style="font-size:9px;color:var(--teal);margin-bottom:3px;">AI INSIGHT</div>
+            <div style="font-size:10px;color:var(--cream2);">Likely to buy for wedding season. High intent this week.</div>
+          </div>
         </div>
-        <div class="stat-box">
-            <div style="color:var(--gold); font-weight:700; margin-bottom:8px;">STAGE 2</div>
-            <div style="font-size:12px; line-height:1.4;">WhatsApp Automation, AI Replies, Auto-Catalog.</div>
-        </div>
-        <div class="stat-box">
-            <div style="color:var(--gold); font-weight:700; margin-bottom:8px;">STAGE 3</div>
-            <div style="font-size:12px; line-height:1.4;">E-Commerce Store, JazzCash/Easypaisa Sync.</div>
-        </div>
-        <div class="stat-box">
-            <div style="color:var(--gold); font-weight:700; margin-bottom:8px;">STAGE 4</div>
-            <div style="font-size:12px; line-height:1.4;">AI Recommendations & Advanced Analytics.</div>
+
+        <div class="ai-products">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div style="font-size:12px;color:var(--gold);">🤖 AI picks for Fatima — 94% match confidence</div>
+          </div>
+          <div class="prod-row">
+            <div class="prod-card match">
+              <div class="match-badge">TOP PICK</div>
+              <div class="prod-img" style="background:linear-gradient(135deg,#1a1a2e,#2d1b69);">👗</div>
+              <div class="prod-info">
+                <div class="prod-name">Royal Blue Bridal 3-Piece</div>
+                <div class="prod-price">Rs 18,500</div>
+                <div class="prod-tags"><span class="prod-tag">heavy embroidery</span><span class="prod-tag">formal</span></div>
+                <div class="ai-score">✓ 97% match to her style</div>
+              </div>
+            </div>
+            <div class="prod-card match">
+              <div class="match-badge">TRENDING</div>
+              <div class="prod-img" style="background:linear-gradient(135deg,#1e3a5f,#1a6b5a);">👘</div>
+              <div class="prod-info">
+                <div class="prod-name">Emerald Formal Gharara</div>
+                <div class="prod-price">Rs 14,000</div>
+                <div class="prod-tags"><span class="prod-tag">formal</span><span class="prod-tag">embroidered</span></div>
+                <div class="ai-score">✓ 92% match · 12 sold this week</div>
+              </div>
+            </div>
+            <div class="prod-card">
+              <div class="prod-img" style="background:linear-gradient(135deg,#3d1515,#6b1a1a);">🎀</div>
+              <div class="prod-info">
+                <div class="prod-name">Maroon Party Suit</div>
+                <div class="prod-price">Rs 9,800</div>
+                <div class="prod-tags"><span class="prod-tag">semi-formal</span></div>
+                <div class="ai-score">✓ 84% match</div>
+              </div>
+            </div>
+          </div>
+          <div class="ai-engine">
+            <div class="ai-engine-icon">🧠</div>
+            <div>
+              <div class="ai-engine-label">How Mavexa builds this for Zyan</div>
+              <div class="ai-engine-text">We integrate GPT-4 with your product catalog. Every website visitor gets personalized picks based on browsing history, size, budget, and past orders — exactly like ASOS "Complete the Look" or Stitch Fix's styling engine. Built in 4-6 weeks.</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div style="margin-top:30px; background:rgba(201,168,76,.1); padding:15px; border-radius:10px; font-size:13px; text-align:center;" class="anim">
-        <strong>First month:</strong> Free Google & Instagram optimization to show you results.
+    </div>
+  </div>
+
+  <!-- SLIDE 7: PROOF FROM BIG BRANDS -->
+  <div class="slide" id="s7">
+    <div class="bg-grid"></div>
+    <div class="slide-inner" style="flex-direction:column;">
+      <div class="tag anim">Real World Proof</div>
+      <h2 class="anim">Big brands did this. <span class="gold italic">Now you can too.</span></h2>
+      <p class="sub anim" style="margin-bottom:24px;">These aren't theories. These are documented results from brands that implemented the same stack Mavexa brings to you.</p>
+      <div class="proof-grid anim">
+        <div class="proof-card" style="border-top:2px solid #FF6900;">
+          <div class="proof-brand">Zalando — Europe's #1 fashion platform</div>
+          <div class="proof-num" style="color:#FF6900;">90%</div>
+          <div style="font-size:12px;color:var(--cream2);margin-bottom:8px;">cost reduction in content production</div>
+          <div class="proof-what">AI now generates 70%+ of all campaign visuals. What took a 10-person team 3 weeks now takes AI 2 hours. Same quality. Zero extra cost.</div>
+          <div class="proof-tech">
+            <span class="tech-tag">AI image generation</span>
+            <span class="tech-tag">GPT-4</span>
+          </div>
+          <div class="zal-ui" style="margin-top:12px;">
+            <div style="font-size:9px;color:#888;margin-bottom:6px;">Zalando AI content pipeline ↓</div>
+            <div class="zal-row">
+              <div class="zal-item">
+                <div class="zal-img-placeholder" style="background:#1a1a1a;">👗</div>
+                <div class="zal-tag-row"><span class="zal-label ai">AI Gen</span><span class="zal-label">Approved</span></div>
+              </div>
+              <div class="zal-item">
+                <div class="zal-img-placeholder" style="background:#111;">📸</div>
+                <div class="zal-tag-row"><span class="zal-label ai">AI Gen</span><span class="zal-label">Published</span></div>
+              </div>
+              <div class="zal-item">
+                <div class="zal-img-placeholder" style="background:#0d0d0d;">✨</div>
+                <div class="zal-tag-row"><span class="zal-label ai">AI Gen</span><span class="zal-label">Live</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card" style="border-top:2px solid var(--teal);">
+          <div class="proof-brand">Etro — Italian luxury fashion</div>
+          <div class="proof-num" style="color:var(--teal);">+46%</div>
+          <div style="font-size:12px;color:var(--cream2);margin-bottom:8px;">e-commerce growth in 12 months</div>
+          <div class="proof-what">Adopted AI for e-commerce content and personalization. Human creativity + AI efficiency was the formula. Online business nearly doubled in one year.</div>
+          <div class="proof-tech">
+            <span class="tech-tag">AI recommendations</span>
+            <span class="tech-tag">Content AI</span>
+          </div>
+          <div style="margin-top:12px;background:rgba(45,212,191,.06);border-radius:8px;padding:10px;">
+            <div style="font-size:9px;color:var(--teal);margin-bottom:4px;">WHAT CHANGED</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--cream2);">→ AI product descriptions in 8 languages</div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--cream2);">→ Personalized homepage per visitor</div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--cream2);">→ AI-predicted inventory restocking</div>
+            </div>
+          </div>
+        </div>
+        <div class="proof-card" style="border-top:2px solid var(--purple);">
+          <div class="proof-brand">Zalando — ChatGPT Shopping Bot</div>
+          <div class="proof-num" style="color:var(--purple);">5 wks</div>
+          <div style="font-size:12px;color:var(--cream2);margin-bottom:8px;">to build a full AI shopping assistant</div>
+          <div class="proof-what">Built a GPT-powered chatbot in just 5 weeks that gives personal outfit recommendations. Adapts to each user's style, budget, and occasion. Now handles millions of queries.</div>
+          <div class="proof-tech">
+            <span class="tech-tag">GPT-4</span>
+            <span class="tech-tag">WhatsApp API</span>
+            <span class="tech-tag">Vector DB</span>
+          </div>
+          <div style="margin-top:12px;background:rgba(139,92,246,.06);border:0.5px solid rgba(139,92,246,.2);border-radius:8px;padding:10px;">
+            <div style="font-size:9px;color:var(--purple);margin-bottom:3px;">MAVEXA CAN BUILD THIS FOR ZYAN</div>
+            <div style="font-size:10px;color:var(--cream2);line-height:1.4;">Same technology, local catalog, Urdu + English. 6-8 week build time. This is the future of boutique selling in Pakistan.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: E-COMMERCE -->
+  <div class="slide" id="s8">
+    <div class="bg-grid"></div>
+    <div class="slide-inner">
+      <div style="display:flex;gap:40px;align-items:center;flex:1;">
+        <div class="store-mockup anim">
+          <div class="store-header">
+            <div class="store-logo">ZYAN BOUTIQUE</div>
+            <div class="store-cart">🛒 Cart (2)</div>
+          </div>
+          <div class="store-hero">
+            <div class="store-hero-text">Eid Collection 2025 — Now Live ✨</div>
+          </div>
+          <div style="padding:8px 10px;background:#F9FAFB;display:flex;gap:8px;overflow-x:auto;">
+            <div style="font-size:10px;color:#7C3AED;white-space:nowrap;background:#F3E8FF;padding:3px 10px;border-radius:12px;font-weight:500;">All</div>
+            <div style="font-size:10px;color:#666;white-space:nowrap;padding:3px 10px;">Bridal</div>
+            <div style="font-size:10px;color:#666;white-space:nowrap;padding:3px 10px;">Casual</div>
+            <div style="font-size:10px;color:#666;white-space:nowrap;padding:3px 10px;">Formal</div>
+            <div style="font-size:10px;color:#666;white-space:nowrap;padding:3px 10px;">Sale</div>
+          </div>
+          <div class="store-products">
+            <div class="store-item">
+              <div class="store-item-img" style="background:linear-gradient(135deg,#1a1a2e,#2d1b69);">👗</div>
+              <div class="store-item-info">
+                <div class="store-item-name">Royal Blue Bridal</div>
+                <div class="store-item-price">Rs 18,500</div>
+                <div style="font-size:9px;color:#10B981;margin-top:1px;">✓ In Stock</div>
+              </div>
+              <div class="store-item-btn">Add to Cart</div>
+            </div>
+            <div class="store-item">
+              <div class="store-item-img" style="background:linear-gradient(135deg,#7C3AED,#4C1D95);">🎀</div>
+              <div class="store-item-info">
+                <div class="store-item-name">Purple Formal Suit</div>
+                <div class="store-item-price">Rs 12,000</div>
+                <div style="font-size:9px;color:#EF4444;margin-top:1px;">⚡ Only 2 left!</div>
+              </div>
+              <div class="store-item-btn">Add to Cart</div>
+            </div>
+            <div class="store-item">
+              <div class="store-item-img" style="background:linear-gradient(135deg,#065F46,#047857);">👘</div>
+              <div class="store-item-info">
+                <div class="store-item-name">Emerald Gharara</div>
+                <div class="store-item-price">Rs 9,800</div>
+                <div style="font-size:9px;color:#10B981;margin-top:1px;">✓ Free delivery</div>
+              </div>
+              <div class="store-item-btn">Add to Cart</div>
+            </div>
+            <div class="store-item">
+              <div class="store-item-img" style="background:linear-gradient(135deg,#7F1D1D,#991B1B);">🌹</div>
+              <div class="store-item-info">
+                <div class="store-item-name">Red Bridal Heavy</div>
+                <div class="store-item-price">Rs 24,000</div>
+                <div style="font-size:9px;color:#F59E0B;margin-top:1px;">🔥 Bestseller</div>
+              </div>
+              <div class="store-item-btn">Add to Cart</div>
+            </div>
+          </div>
+          <div class="payment-row">
+            <div class="pay-badge">💚 JazzCash</div>
+            <div class="pay-badge">🔵 Easypaisa</div>
+            <div class="pay-badge">💳 Card</div>
+            <div class="pay-badge">💵 COD</div>
+          </div>
+        </div>
+        <div class="ecom-benefits anim" style="flex:1;">
+          <div class="tag">Stage 3 · E-Commerce Store</div>
+          <h2 style="margin-bottom:8px;">Sell while you <span class="gold italic">sleep</span></h2>
+          <p class="sub" style="margin-bottom:20px;">A full Zyan Boutique online store — with Pakistani payment methods, WhatsApp order sync, and AI inventory management. Built on WooCommerce or Shopify.</p>
+          <div class="ben-item">
+            <div class="ben-icon">💳</div>
+            <div>
+              <div class="ben-title">Local payments built in</div>
+              <div class="ben-desc">JazzCash, Easypaisa, bank transfer, and COD — all integrated. No customer left behind.</div>
+              <div class="ben-stat">Pakistan mobile wallet users: 62 million and growing</div>
+            </div>
+          </div>
+          <div class="ben-item">
+            <div class="ben-icon">📦</div>
+            <div>
+              <div class="ben-title">Inventory never goes wrong</div>
+              <div class="ben-desc">Online store + WhatsApp + walk-in stock synced automatically. "Only 2 left!" urgency triggers built in.</div>
+              <div class="ben-stat">Reduces overselling by 95%</div>
+            </div>
+          </div>
+          <div class="ben-item" style="border:none;">
+            <div class="ben-icon">🔔</div>
+            <div>
+              <div class="ben-title">Cart abandonment bot</div>
+              <div class="ben-desc">Customer adds to cart, leaves without buying — WhatsApp message fires after 1 hour with a gentle nudge and discount code.</div>
+              <div class="ben-stat">Recovers 15-25% of abandoned carts automatically</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: SERVICES SUMMARY -->
+  <div class="slide" id="s9">
+    <div class="bg-grid"></div>
+    <div class="slide-inner" style="flex-direction:column;">
+      <div class="tag anim">What Mavexa Delivers</div>
+      <h2 class="anim">One team, <span class="gold italic">every stage</span></h2>
+      <div class="services-grid anim">
+        <div class="srv-card">
+          <div class="srv-stage" style="color:#639922;">Stage 1 · Start</div>
+          <div class="srv-icon">📍</div>
+          <div class="srv-title">Be Found Online</div>
+          <ul class="srv-list">
+            <li>Google My Business setup</li>
+            <li>WhatsApp Business catalog</li>
+            <li>Local SEO optimization</li>
+            <li>Instagram strategy + bio</li>
+            <li>Basic website landing page</li>
+          </ul>
+        </div>
+        <div class="srv-card">
+          <div class="srv-stage" style="color:#185FA5;">Stage 2 · Grow</div>
+          <div class="srv-icon">📱</div>
+          <div class="srv-title">Digital Presence</div>
+          <ul class="srv-list">
+            <li>Monthly social media mgmt</li>
+            <li>Reels content production</li>
+            <li>WhatsApp auto-reply bot</li>
+            <li>Website maintenance</li>
+            <li>Analytics dashboard</li>
+          </ul>
+        </div>
+        <div class="srv-card">
+          <div class="srv-stage" style="color:#854F0B;">Stage 3 · Scale</div>
+          <div class="srv-icon">🛒</div>
+          <div class="srv-title">E-Commerce & Automation</div>
+          <ul class="srv-list">
+            <li>Full online store build</li>
+            <li>JazzCash/Easypaisa payments</li>
+            <li>Inventory management system</li>
+            <li>Cart abandonment bot</li>
+            <li>Meta & Google Ads</li>
+          </ul>
+        </div>
+        <div class="srv-card">
+          <div class="srv-stage" style="color:#534AB7;">Stage 4 · Dominate</div>
+          <div class="srv-icon">🧠</div>
+          <div class="srv-title">AI-Powered Growth</div>
+          <ul class="srv-list">
+            <li>AI product recommendations</li>
+            <li>GPT-powered chatbot (Urdu)</li>
+            <li>AI content generation</li>
+            <li>Trend forecasting dashboard</li>
+            <li>Customer behavior analytics</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pricing-note anim">
+        <div class="pricing-text">Starting with Zyan Boutique — we recommend beginning at Stage 1, proving results, then growing together.</div>
+        <div class="pricing-highlight">First month: Google My Business + Instagram strategy — free to show what we can do.</div>
       </div>
     </div>
   </div>
@@ -333,28 +970,48 @@
   <!-- SLIDE 10: CTA -->
   <div class="slide" id="s10">
     <div class="bg-grid"></div>
-    <div class="slide-inner" style="justify-content:center; align-items:center; text-align:center;">
-      <div class="tag anim">Ready?</div>
-      <h1 class="anim">Let's grow <br><span class="gold italic">Zyan Boutique</span></h1>
-      <div style="width:60px; height:1px; background:var(--gold); margin:20px auto;"></div>
-      <div class="next-steps anim">
-        <div class="step-pill"><span style="color:var(--gold)">01</span> GMB Setup</div>
-        <div class="step-pill"><span style="color:var(--gold)">02</span> IG Content</div>
-        <div class="step-pill"><span style="color:var(--gold)">03</span> WhatsApp Bot</div>
+    <div class="bg-glow" style="width:600px;height:600px;background:var(--gold);bottom:-300px;left:50%;transform:translateX(-50%);opacity:.15;"></div>
+    <div class="slide-inner">
+      <div class="tag anim" style="align-self:center;">Let's Build Something</div>
+      <h1 class="anim" style="font-size:clamp(36px,5vw,70px);text-align:center;line-height:1.05;">
+        Zyan Boutique<br>
+        <span class="gold italic">deserves to be</span><br>
+        everywhere.
+      </h1>
+      <div class="divider anim" style="margin:24px auto;"></div>
+      <p class="sub anim" style="text-align:center;max-width:500px;margin:0 auto;">We start small. We prove results. We grow together. No contracts, no jargon — just real digital growth for a real boutique in Rabwah.</p>
+      <div class="next-steps anim" style="margin-top:32px;">
+        <div class="step-pill"><div class="step-num">1</div> Google My Business — Day 1</div>
+        <div class="step-pill"><div class="step-num">2</div> Instagram content — Week 1</div>
+        <div class="step-pill"><div class="step-num">3</div> WhatsApp bot — Week 3</div>
+        <div class="step-pill"><div class="step-num">4</div> Full e-commerce — Month 2</div>
       </div>
-      <div style="margin-top:40px;" class="anim">
-        <p style="font-size:12px; color:var(--gold); letter-spacing:2px;">MAVEXA AGENCY</p>
+      <div class="contact-row anim">
+        <div class="contact-item">
+          <div class="contact-label">Agency</div>
+          <div class="contact-val">Mavexa</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.15);"></div>
+        <div class="contact-item">
+          <div class="contact-label">Presented by</div>
+          <div class="contact-val">Ayesha + Team</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,.15);"></div>
+        <div class="contact-item">
+          <div class="contact-label">Ready to start</div>
+          <div class="contact-val" style="color:var(--teal);">Immediately</div>
+        </div>
       </div>
     </div>
   </div>
 
-</div>
+</div><!-- /deck -->
 
 <!-- NAV -->
 <div class="nav">
   <button class="nav-btn" onclick="prev()">←</button>
   <div class="nav-dots" id="dots"></div>
-  <div class="slide-count" id="sc">1 / 6</div>
+  <div class="slide-count" id="sc">1 / 10</div>
   <button class="nav-btn" onclick="next()">→</button>
 </div>
 
@@ -364,7 +1021,6 @@
   const sc = document.getElementById('sc');
   let cur = 0;
 
-  // Generate dots
   slides.forEach((_,i)=>{
     const d = document.createElement('div');
     d.className = 'dot' + (i===0?' active':'');
@@ -379,8 +1035,6 @@
     slides[cur].classList.add('active');
     dots.children[cur].classList.add('active');
     sc.textContent = (cur+1)+' / '+slides.length;
-    // Scroll slide to top when changing
-    slides[cur].scrollTop = 0;
   }
   function next(){ go(cur+1); }
   function prev(){ go(cur-1); }
